@@ -9,6 +9,20 @@
 #import "SPInputCell.h"
 
 @implementation SPInputCell
+{
+    UISwipeGestureRecognizer* _swipeRecognizer;
+}
+
+- (id)initWithCoder:(NSCoder *)decoder
+{
+    self = [super initWithCoder:decoder];
+    if (self) {
+        _swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
+        _swipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+        [self addGestureRecognizer:_swipeRecognizer];
+    }
+    return self;
+}
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -17,6 +31,25 @@
         // Initialization code
     }
     return self;
+}
+
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    self.done = NO;
+    _inputField.attributedText = nil;
+}
+
+- (void)swipeRight:(id)sender
+{
+    self.done = !self.done;
+    NSMutableAttributedString* as = [[NSMutableAttributedString alloc] initWithString:_inputField.text];
+    if (self.done) {
+        [as addAttribute:NSStrikethroughStyleAttributeName
+                   value:[NSNumber numberWithInteger:NSUnderlinePatternSolid | NSUnderlineStyleSingle]
+                   range:NSMakeRange(0, _inputField.text.length)];
+    }
+    _inputField.attributedText = as;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

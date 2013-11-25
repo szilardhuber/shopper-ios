@@ -11,6 +11,7 @@
 @interface SPInputCell : UITableViewCell <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
 @property (nonatomic, strong) NSMutableString* text;
+@property (assign, getter = isDone) BOOL done;
 
 - (void)edit;
 @end

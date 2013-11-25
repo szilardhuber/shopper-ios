@@ -94,13 +94,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.row == 0) {
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newitem" forIndexPath:indexPath];
-//        return cell;
-//    }
-    
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newitem" forIndexPath:indexPath];
     SPInputCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newitem" forIndexPath:indexPath];
 
     NSMutableString *string = _objects[indexPath.row];
