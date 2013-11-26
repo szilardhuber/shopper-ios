@@ -33,23 +33,22 @@
     return self;
 }
 
-- (void)prepareForReuse
+- (void)setupInputFieldText
 {
-    [super prepareForReuse];
-    self.done = NO;
-    _inputField.attributedText = nil;
+    NSString* nameString = (_item.name) ? _item.name : @"";
+    NSMutableAttributedString* as = [[NSMutableAttributedString alloc] initWithString:nameString];
+    if (self.item.done.boolValue) {
+        [as addAttribute:NSStrikethroughStyleAttributeName
+                   value:[NSNumber numberWithInteger:NSUnderlinePatternSolid | NSUnderlineStyleSingle]
+                   range:NSMakeRange(0, nameString.length)];
+    }
+    _inputField.attributedText = as;
 }
 
 - (void)swipeRight:(id)sender
 {
-    self.done = !self.done;
-    NSMutableAttributedString* as = [[NSMutableAttributedString alloc] initWithString:_inputField.text];
-    if (self.done) {
-        [as addAttribute:NSStrikethroughStyleAttributeName
-                   value:[NSNumber numberWithInteger:NSUnderlinePatternSolid | NSUnderlineStyleSingle]
-                   range:NSMakeRange(0, _inputField.text.length)];
-    }
-    _inputField.attributedText = as;
+    self.item.done = [NSNumber numberWithBool:!self.item.done.boolValue];
+    [self setupInputFieldText];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -66,12 +65,10 @@
 
 #pragma mark - Property manipulations
 
-- (void)setText:(NSMutableString *)text
+- (void)setItem:(Item *)item
 {
-    if (_text != text) {
-        _text = text;
-    }
-    self.inputField.text = text;
+    _item = item;
+    [self setupInputFieldText];
 }
 
 - (void)setInputField:(UITextField *)inputField
@@ -85,7 +82,7 @@
 #pragma mark - UITextField delegate
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    [self.text setString:textField.text];
+    self.item.name = textField.text;
     return YES;
 }
 
