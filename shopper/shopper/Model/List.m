@@ -1,20 +1,18 @@
 //
-//  Item.m
+//  List.m
 //  shopper
 //
 //  Created by Tamás Koródi on 29/11/13.
 //  Copyright (c) 2013 Tamás Koródi. All rights reserved.
 //
 
+#import "List.h"
 #import "Item.h"
 
 
-@implementation Item
+@implementation List
 
-@dynamic done;
 @dynamic name;
-@dynamic orderingID;
-@dynamic quantity;
-@dynamic list;
+@dynamic items;
 
 @end

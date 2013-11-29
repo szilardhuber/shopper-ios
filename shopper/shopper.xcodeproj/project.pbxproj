@@ -27,7 +27,8 @@
 		6BAF9F4918357F45006BC3AD /* shopperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BAF9F4818357F45006BC3AD /* shopperTests.m */; };
 		6BFEC88F18454DA50014AB6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BFEC88E18454DA50014AB6F /* CoreData.framework */; };
 		6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */; };
-		6BFEC89C18454F580014AB6F /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC89B18454F580014AB6F /* Item.m */; };
+		6BFEC8A5184928280014AB6F /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC8A4184928280014AB6F /* Item.m */; };
+		6BFEC8A8184928280014AB6F /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC8A7184928280014AB6F /* List.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,10 +69,11 @@
 		6BAF9F4618357F45006BC3AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6BAF9F4818357F45006BC3AD /* shopperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shopperTests.m; sourceTree = "<group>"; };
 		6BFEC88E18454DA50014AB6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		6BFEC89118454E000014AB6F /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		6BFEC89418454F0B0014AB6F /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		6BFEC89A18454F580014AB6F /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		6BFEC89B18454F580014AB6F /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		6BFEC8A3184928280014AB6F /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		6BFEC8A4184928280014AB6F /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		6BFEC8A6184928280014AB6F /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
+		6BFEC8A7184928280014AB6F /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = List.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +132,6 @@
 		6BAF9F0B18357F45006BC3AD = {
 			isa = PBXGroup;
 			children = (
-				6BFEC89018454E000014AB6F /* DataModel.xcdatamodeld */,
 				6B446E72183ACE95007FA9FC /* External */,
 				6B446EE81842AADD007FA9FC /* Views */,
 				6BAF9F1D18357F45006BC3AD /* shopper */,
@@ -212,8 +213,10 @@
 		6BFEC89918454F580014AB6F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6BFEC89A18454F580014AB6F /* Item.h */,
-				6BFEC89B18454F580014AB6F /* Item.m */,
+				6BFEC8A6184928280014AB6F /* List.h */,
+				6BFEC8A7184928280014AB6F /* List.m */,
+				6BFEC8A3184928280014AB6F /* Item.h */,
+				6BFEC8A4184928280014AB6F /* Item.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -319,10 +322,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BFEC8A5184928280014AB6F /* Item.m in Sources */,
 				6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */,
-				6BFEC89C18454F580014AB6F /* Item.m in Sources */,
 				6BAF9F3418357F45006BC3AD /* SPDetailViewController.m in Sources */,
 				6B446EE718413320007FA9FC /* KYPullToActionController.m in Sources */,
+				6BFEC8A8184928280014AB6F /* List.m in Sources */,
 				6BAF9F2418357F45006BC3AD /* main.m in Sources */,
 				6BAF9F2818357F45006BC3AD /* SPAppDelegate.m in Sources */,
 				6BAF9F3118357F45006BC3AD /* SPMasterViewController.m in Sources */,
@@ -559,16 +563,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		6BFEC89018454E000014AB6F /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				6BFEC89118454E000014AB6F /* DataModel.xcdatamodel */,
-			);
-			currentVersion = 6BFEC89118454E000014AB6F /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

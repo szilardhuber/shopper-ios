@@ -13,9 +13,12 @@
 #import "KYPullToActionController.h"
 #import "SPInputCell.h"
 #import "Item.h"
+#import "List.h"
 
 @interface SPMasterViewController () {
     KYPullToActionController* _pullToActionController;
+    BOOL _userChange;
+    List* _list;
 }
 @end
 
@@ -73,9 +76,14 @@
 
 - (void)insertNewObject:(id)sender
 {
+    //_userChange = YES;
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
     NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    [NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    Item* newItem = (Item*)[NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][0];
+    newItem.orderingID = [NSNumber numberWithUnsignedInteger:[sectionInfo numberOfObjects]];
+    newItem.list = _list;
     
     // Save the context.
     NSError *error = nil;
@@ -130,18 +138,29 @@
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
-    //TODO kotyo: implement it!
+    _userChange = YES;
+    NSUInteger fromRow = fromIndexPath.row;
+    NSUInteger toRow = toIndexPath.row;
+    NSInteger delta = (fromRow < toRow) ? 1 : -1;
+    NSInteger changedOffset = -delta*labs(toRow-fromRow);
+    
+    // All the other rows
+    for (; fromRow != toRow; toRow -= delta) {
+        Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow];
+        item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue+delta];
+    }
+    
+    // Affected row
+    Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:fromRow];
+    item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue + changedOffset];
 }
 
-
-/*
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+    Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+    return !item.done.boolValue;
 }
-*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -161,6 +180,29 @@
         return _fetchedResultsController;
     }
     
+    //
+    NSEntityDescription *listEntity = [NSEntityDescription entityForName:@"List" inManagedObjectContext:self.managedObjectContext];
+    NSFetchRequest* listRequest = [[NSFetchRequest alloc] init];
+    [listRequest setEntity:listEntity];
+    [listRequest setFetchBatchSize:1];
+    NSPredicate* listPredicate = [NSPredicate predicateWithFormat:@"name == %@", @"Main"];
+    listRequest.predicate = listPredicate;
+    NSError* err = nil;
+    _list = (List*)[self.managedObjectContext executeFetchRequest:listRequest error:&err].lastObject;
+    if (err)
+    {
+        NSLog(@"Error while fetching objects: %@", [err description]);
+        return nil;
+    }
+    if (_list == nil) { //create
+        _list = (List*)[NSEntityDescription insertNewObjectForEntityForName:[listEntity name] inManagedObjectContext:self.managedObjectContext];
+        _list.name = @"Main";
+        if (![self.managedObjectContext save:&err]) {
+            NSLog(@"Unresolved error %@, %@", err, [err userInfo]);
+            abort();
+        }
+    }
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item" inManagedObjectContext:self.managedObjectContext];
@@ -169,10 +211,14 @@
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
+    // Set predicate
+    NSPredicate* itemPredicate = [NSPredicate predicateWithFormat:@"list == %@", _list];
+    fetchRequest.predicate = itemPredicate;
+    
     // Edit the sort key as appropriate.
-//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timeStamp" ascending:NO];
-//    NSArray *sortDescriptors = @[sortDescriptor];
-    NSArray *sortDescriptors = @[];
+    NSSortDescriptor *sortDescriptorDone = [[NSSortDescriptor alloc] initWithKey:@"done" ascending:YES];
+    NSSortDescriptor *sortDescriptorOrderingID = [[NSSortDescriptor alloc] initWithKey:@"orderingID" ascending:NO];
+    NSArray *sortDescriptors = @[sortDescriptorDone, sortDescriptorOrderingID];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
@@ -195,20 +241,24 @@
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableView beginUpdates];
+    if (!_userChange) {
+        [self.tableView beginUpdates];
+    }
 }
 
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+    if (!_userChange) {
+        switch(type) {
+            case NSFetchedResultsChangeInsert:
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
     }
 }
 
@@ -216,34 +266,38 @@
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-    UITableView *tableView = self.tableView;
-    
-    switch(type) {
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-            
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
-            
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
+    if (!_userChange) {
+        UITableView *tableView = self.tableView;
+        switch(type) {
+            case NSFetchedResultsChangeInsert:
+                [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeUpdate:
+                [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+                break;
+                
+            case NSFetchedResultsChangeMove:
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+        }
     }
-    
-    NSError* err = nil;
-    [self.fetchedResultsController.managedObjectContext save:&err];
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.tableView endUpdates];
+    if (!_userChange) {
+        [self.tableView endUpdates];
+    }
+    _userChange = NO;
+    
+    NSError* err = nil;
+    [self.fetchedResultsController.managedObjectContext save:&err];
 }
 
 /*

@@ -3,9 +3,23 @@
     <entity name="Item" representedClassName="Item" syncable="YES">
         <attribute name="done" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="orderingID" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="quantity" attributeType="Integer 32" defaultValueString="1" syncable="YES"/>
+        <relationship name="list" optional="YES" maxCount="1" deletionRule="Deny" destinationEntity="List" inverseName="items" inverseEntity="List" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="list"/>
+                <index value="done"/>
+                <index value="orderingID"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="List" representedClassName="List" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Item" inverseName="list" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Item" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Item" positionX="0" positionY="0" width="128" height="118"/>
+        <element name="List" positionX="160" positionY="192" width="128" height="73"/>
     </elements>
 </model>
