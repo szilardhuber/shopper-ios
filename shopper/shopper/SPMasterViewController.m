@@ -108,6 +108,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // KOTYO hack - remove it later
+    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_list.items count]];
+
     SPInputCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newitem" forIndexPath:indexPath];
 
     [self configureCell:cell atIndexPath:indexPath];
@@ -127,8 +130,24 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Decrase the ordering number before the deletable element
+        for (NSInteger currentIndex = indexPath.row-1;
+             currentIndex >= 0;
+             --currentIndex)
+        {
+            Item *item = [self.fetchedResultsController.fetchedObjects objectAtIndex:currentIndex];
+            item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue-1];
+        }
+        
+        // Delete the element
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError* err = nil;
+        [context save:&err];
+        if (err) {
+            NSLog(@"Error while deleting and object: %@", [err description]);
+        }
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
@@ -294,6 +313,15 @@
     if (!_userChange) {
         [self.tableView endUpdates];
     }
+    
+    // kotyo hack
+    else {
+        [self.tableView reloadData];
+    }
+    // KOTYO hack - remove it later
+    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_list.items count]];
+    
+    
     _userChange = NO;
     
     NSError* err = nil;

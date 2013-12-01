@@ -35,8 +35,8 @@
 
 - (void)setupInputFieldText
 {
-//    NSString* nameString = (_item.name) ? [NSString stringWithFormat:@"%@ - %@", _item.name, _item.orderingID] : @"";
-    NSString* nameString = (_item.name) ? _item.name : @"";
+    NSString* nameString = (_item.name) ? [NSString stringWithFormat:@"%@ - %@", _item.name, _item.orderingID] : @"";
+//    NSString* nameString = (_item.name) ? _item.name : @"";
     NSMutableAttributedString* as = [[NSMutableAttributedString alloc] initWithString:nameString];
     if (self.item.done.boolValue) {
         [as addAttribute:NSStrikethroughStyleAttributeName
