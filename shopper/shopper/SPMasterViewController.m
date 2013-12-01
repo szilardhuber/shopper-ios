@@ -130,24 +130,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Decrase the ordering number before the deletable element
-        for (NSInteger currentIndex = indexPath.row-1;
-             currentIndex >= 0;
-             --currentIndex)
-        {
-            Item *item = [self.fetchedResultsController.fetchedObjects objectAtIndex:currentIndex];
-            item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue-1];
-        }
-        
-        // Delete the element
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
-        NSError* err = nil;
-        [context save:&err];
-        if (err) {
-            NSLog(@"Error while deleting and object: %@", [err description]);
-        }
+        [self deleteItemAtIdexPath:indexPath];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
@@ -313,7 +296,6 @@
     if (!_userChange) {
         [self.tableView endUpdates];
     }
-    
     // kotyo hack
     else {
         [self.tableView reloadData];
@@ -321,28 +303,41 @@
     // KOTYO hack - remove it later
     self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_list.items count]];
     
-    
     _userChange = NO;
     
     NSError* err = nil;
     [self.fetchedResultsController.managedObjectContext save:&err];
+    
 }
-
-/*
- // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
- 
- - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
- {
- // In the simplest, most efficient, case, reload the table view.
- [self.tableView reloadData];
- }
- */
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Item *item = (Item*)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    [(SPInputCell*)cell setItem:item];
+    SPInputCell* inputCell = (SPInputCell*)cell;
+    
+    [inputCell setItem:item];
+    inputCell.editEndedBlock = ^(SPInputCell* cell) {
+        if ([cell.item.name isEqualToString:@""]) {
+            NSIndexPath* deletableIndexPath = [self.tableView indexPathForCell:cell];
+            [self deleteItemAtIdexPath:deletableIndexPath];
+        }
+    };
 }
 
+- (void)deleteItemAtIdexPath:(NSIndexPath*)indexPath
+{
+    // Decrase the ordering number before the deletable element
+    for (NSInteger currentIndex = indexPath.row-1;
+         currentIndex >= 0;
+         --currentIndex)
+    {
+        Item *item = [self.fetchedResultsController.fetchedObjects objectAtIndex:currentIndex];
+        item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue-1];
+    }
+    
+    // Delete the element
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+}
 
 @end

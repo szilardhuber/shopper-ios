@@ -84,6 +84,11 @@
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     self.item.name = textField.text;
+
+    if (self.editEndedBlock) {
+        self.editEndedBlock(self);
+    }
+    
     return YES;
 }
 

@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *inputField;
 @property (nonatomic, strong) Item *item;
+@property (copy) void(^editEndedBlock)(SPInputCell* cell);
 
 - (void)edit;
 @end
