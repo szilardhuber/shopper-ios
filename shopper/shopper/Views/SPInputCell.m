@@ -48,8 +48,10 @@
 
 - (void)swipeRight:(id)sender
 {
-    self.item.done = [NSNumber numberWithBool:!self.item.done.boolValue];
-    [self setupInputFieldText];
+    if (![self.inputField isFirstResponder]) {
+        self.item.done = [NSNumber numberWithBool:!self.item.done.boolValue];
+        [self setupInputFieldText];
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -81,6 +83,11 @@
 }
 
 #pragma mark - UITextField delegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    return !self.item.done.boolValue;
+}
+
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     self.item.name = textField.text;

@@ -146,23 +146,35 @@
     NSInteger delta = (fromRow < toRow) ? 1 : -1;
     NSInteger changedOffset = -delta*labs(toRow-fromRow);
     
-    // All the other rows
-    for (; fromRow != toRow; toRow -= delta) {
-        Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow];
-        item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue+delta];
+    // Affected row
+    Item* affectedItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:fromRow];
+    affectedItem.orderingID = [NSNumber numberWithInteger:affectedItem.orderingID.intValue + changedOffset];
+    if (toRow > fromRow) { // Moved down
+        Item* prevItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow-1];
+        if (prevItem.done.boolValue) {
+            affectedItem.done = [NSNumber numberWithBool:YES];
+        }
+    }
+    if (toRow < fromRow) { // Moved up
+        Item* nextItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow+1];
+        if (!nextItem.done.boolValue) {
+            affectedItem.done = [NSNumber numberWithBool:NO];
+        }
     }
     
-    // Affected row
-    Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:fromRow];
-    item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue + changedOffset];
+    // All the other rows
+    for (NSUInteger currentRow = toRow; fromRow != currentRow; currentRow -= delta) {
+        Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:currentRow];
+        item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue+delta];
+    }
 }
 
 // Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
-    return !item.done.boolValue;
-}
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:indexPath.row];
+//    return !item.done.boolValue;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
