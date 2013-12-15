@@ -141,32 +141,59 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     _userChange = YES;
-    NSUInteger fromRow = fromIndexPath.row;
-    NSUInteger toRow = toIndexPath.row;
+    NSInteger movement = [self moveItemsFromRow:fromIndexPath.row toRow:toIndexPath.row];
+    
+    Item* affectedItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:[fromIndexPath row]];
+    if (movement > 0) {
+        Item* prevItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:[toIndexPath row]];
+        if (prevItem.done.boolValue) {
+            affectedItem.done = [NSNumber numberWithBool:YES];
+        }
+    }
+    if (movement < 0) {
+        Item* nextItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:[toIndexPath row]];
+        if (!nextItem.done.boolValue) {
+            affectedItem.done = [NSNumber numberWithBool:NO];
+        }
+    }
+}
+
+// Ret Value: -1 - moved up; 0 - stayed in place; 1 - moved down
+- (NSInteger)moveItemsFromRow:(NSUInteger)fromRow toRow:(NSUInteger)toRow
+{
+    NSInteger movement = 0;
     NSInteger delta = (fromRow < toRow) ? 1 : -1;
     NSInteger changedOffset = -delta*labs(toRow-fromRow);
     
     // Affected row
     Item* affectedItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:fromRow];
     affectedItem.orderingID = [NSNumber numberWithInteger:affectedItem.orderingID.intValue + changedOffset];
-    if (toRow > fromRow) { // Moved down
-        Item* prevItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow-1];
-        if (prevItem.done.boolValue) {
-            affectedItem.done = [NSNumber numberWithBool:YES];
-        }
+    if (toRow > fromRow) {
+        movement = 1;
     }
-    if (toRow < fromRow) { // Moved up
-        Item* nextItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow+1];
-        if (!nextItem.done.boolValue) {
-            affectedItem.done = [NSNumber numberWithBool:NO];
-        }
+    if (toRow < fromRow) {
+        movement = -1;
     }
+    //    if (toRow > fromRow) { // Moved down
+    //        Item* prevItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow-1];
+    //        if (prevItem.done.boolValue) {
+    //            affectedItem.done = [NSNumber numberWithBool:YES];
+    //        }
+    //    }
+    //    if (toRow < fromRow) { // Moved up
+    //        Item* nextItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow+1];
+    //        if (!nextItem.done.boolValue) {
+    //            affectedItem.done = [NSNumber numberWithBool:NO];
+    //        }
+    //    }
     
     // All the other rows
     for (NSUInteger currentRow = toRow; fromRow != currentRow; currentRow -= delta) {
         Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:currentRow];
         item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue+delta];
     }
+    
+    return movement;
 }
 
 // Override to support conditional rearranging of the table view.
@@ -230,9 +257,8 @@
     fetchRequest.predicate = itemPredicate;
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptorDone = [[NSSortDescriptor alloc] initWithKey:@"done" ascending:YES];
     NSSortDescriptor *sortDescriptorOrderingID = [[NSSortDescriptor alloc] initWithKey:@"orderingID" ascending:NO];
-    NSArray *sortDescriptors = @[sortDescriptorDone, sortDescriptorOrderingID];
+    NSArray *sortDescriptors = @[sortDescriptorOrderingID];
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
@@ -300,6 +326,45 @@
                 [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
                 break;
         }
+    }
+    
+    // No matter if it is a user change we should check and update position if needed
+    if (type == NSFetchedResultsChangeUpdate) {
+        Item* changedItem = (Item*)anObject;
+        [self updateItemPositionAccordingDoneStatus:changedItem];
+    }
+}
+
+- (void)updateItemPositionAccordingDoneStatus:(Item*)item
+{
+    NSArray* items = self.fetchedResultsController.fetchedObjects;
+    NSIndexPath* currentIndex = [self.fetchedResultsController indexPathForObject:item];
+    NSIndexPath* lastUnfinishedIndex = currentIndex;
+    
+    if ([item.done boolValue]) {
+        // Find the last unfinished row from the bottom
+        for (NSInteger idx = [items count]-1; idx >= 0; --idx) {
+            Item* currentItem = items[idx];
+            lastUnfinishedIndex = [self.fetchedResultsController indexPathForObject:currentItem];
+            if (![currentItem.done boolValue]) {
+                break;
+            }
+        }
+    } else {
+        // Find the last unfinished row from the top
+        for (NSInteger idx = 0; idx < [items count]; ++idx) {
+            Item* currentItem = items[idx];
+            lastUnfinishedIndex = [self.fetchedResultsController indexPathForObject:currentItem];
+            if ([currentItem.done boolValue]) {
+                break;
+            }
+        }
+    }
+    
+    if (([currentIndex row] > [lastUnfinishedIndex row] && ![item.done boolValue]) ||
+        ([currentIndex row] < [lastUnfinishedIndex row] && [item.done boolValue])) {
+        NSLog(@"move...");
+        [self moveItemsFromRow:[currentIndex row] toRow:[lastUnfinishedIndex row]];
     }
 }
 
