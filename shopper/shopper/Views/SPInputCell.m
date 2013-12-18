@@ -35,8 +35,8 @@
 
 - (void)setupInputFieldText
 {
-    NSString* nameString = (_item.name) ? [NSString stringWithFormat:@"%@ - %@", _item.name, _item.orderingID] : @"";
-//    NSString* nameString = (_item.name) ? _item.name : @"";
+//    NSString* nameString = (_item.name) ? [NSString stringWithFormat:@"%@ - %@", _item.name, _item.orderingID] : @"";
+    NSString* nameString = (_item.name) ? _item.name : @"";
     NSMutableAttributedString* as = [[NSMutableAttributedString alloc] initWithString:nameString];
     if (self.item.done.boolValue) {
         [as addAttribute:NSStrikethroughStyleAttributeName
@@ -74,11 +74,22 @@
     [self setupInputFieldText];
 }
 
-- (void)setInputField:(UITextField *)inputField
+- (void)setInputField:(MLPAutoCompleteTextField *)inputField
 {
     if (_inputField != inputField) {
         _inputField = inputField;
         inputField.delegate = self;
+        [inputField setAutoCompleteTableAppearsAsKeyboardAccessory:YES];
+        UIColor* bgColor = [UIColor colorWithWhite:1.0 alpha:0.9];
+        [inputField setAutoCompleteTableBackgroundColor:bgColor];
+        [inputField setAutoCompleteFetchRequestDelay:0.33];
+        UIColor* borderColor = [UIColor colorWithRed:219./255.
+                                               green:222./255.
+                                                blue:226./255.
+                                               alpha:1.0];
+        [inputField setAutoCompleteTableBorderColor:borderColor];
+        [inputField setAutoCompleteTableBorderWidth:3.5];
+        [inputField setAutoCompleteTableCellTextColor:[UIColor blackColor]];
     }
 }
 

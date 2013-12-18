@@ -25,6 +25,9 @@
 		6BAF9F3F18357F45006BC3AD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BAF9F1B18357F45006BC3AD /* UIKit.framework */; };
 		6BAF9F4718357F45006BC3AD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6BAF9F4518357F45006BC3AD /* InfoPlist.strings */; };
 		6BAF9F4918357F45006BC3AD /* shopperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BAF9F4818357F45006BC3AD /* shopperTests.m */; };
+		6BBBEE081860EC1C003A3A0B /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE021860EC1C003A3A0B /* MLPAutoCompleteTextField.m */; };
+		6BBBEE091860EC1C003A3A0B /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE071860EC1C003A3A0B /* NSString+Levenshtein.m */; };
+		6BBBEE0C1861F9B3003A3A0B /* SPSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */; };
 		6BFEC88F18454DA50014AB6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BFEC88E18454DA50014AB6F /* CoreData.framework */; };
 		6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */; };
 		6BFEC8A5184928280014AB6F /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC8A4184928280014AB6F /* Item.m */; };
@@ -68,6 +71,15 @@
 		6BAF9F4418357F45006BC3AD /* shopperTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "shopperTests-Info.plist"; sourceTree = "<group>"; };
 		6BAF9F4618357F45006BC3AD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6BAF9F4818357F45006BC3AD /* shopperTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = shopperTests.m; sourceTree = "<group>"; };
+		6BBBEE011860EC1C003A3A0B /* MLPAutoCompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextField.h; sourceTree = "<group>"; };
+		6BBBEE021860EC1C003A3A0B /* MLPAutoCompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPAutoCompleteTextField.m; sourceTree = "<group>"; };
+		6BBBEE031860EC1C003A3A0B /* MLPAutoCompleteTextFieldDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDataSource.h; sourceTree = "<group>"; };
+		6BBBEE041860EC1C003A3A0B /* MLPAutoCompleteTextFieldDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompleteTextFieldDelegate.h; sourceTree = "<group>"; };
+		6BBBEE051860EC1C003A3A0B /* MLPAutoCompletionObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPAutoCompletionObject.h; sourceTree = "<group>"; };
+		6BBBEE061860EC1C003A3A0B /* NSString+Levenshtein.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Levenshtein.h"; sourceTree = "<group>"; };
+		6BBBEE071860EC1C003A3A0B /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
+		6BBBEE0A1861F9B3003A3A0B /* SPSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSuggestionFetcher.h; sourceTree = "<group>"; };
+		6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSuggestionFetcher.m; sourceTree = "<group>"; };
 		6BFEC88E18454DA50014AB6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6BFEC89418454F0B0014AB6F /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		6BFEC8A3184928280014AB6F /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
@@ -104,6 +116,7 @@
 		6B446E72183ACE95007FA9FC /* External */ = {
 			isa = PBXGroup;
 			children = (
+				6BBBEE001860EC1C003A3A0B /* MLPAutoComplete */,
 				6B446EE418413320007FA9FC /* PullToAction */,
 			);
 			name = External;
@@ -173,6 +186,8 @@
 				6BAF9F3018357F45006BC3AD /* SPMasterViewController.m */,
 				6BAF9F3218357F45006BC3AD /* SPDetailViewController.h */,
 				6BAF9F3318357F45006BC3AD /* SPDetailViewController.m */,
+				6BBBEE0A1861F9B3003A3A0B /* SPSuggestionFetcher.h */,
+				6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */,
 				6BAF9F3518357F45006BC3AD /* Images.xcassets */,
 				6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */,
 				6BFEC89918454F580014AB6F /* Model */,
@@ -208,6 +223,21 @@
 				6BAF9F4518357F45006BC3AD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6BBBEE001860EC1C003A3A0B /* MLPAutoComplete */ = {
+			isa = PBXGroup;
+			children = (
+				6BBBEE011860EC1C003A3A0B /* MLPAutoCompleteTextField.h */,
+				6BBBEE021860EC1C003A3A0B /* MLPAutoCompleteTextField.m */,
+				6BBBEE031860EC1C003A3A0B /* MLPAutoCompleteTextFieldDataSource.h */,
+				6BBBEE041860EC1C003A3A0B /* MLPAutoCompleteTextFieldDelegate.h */,
+				6BBBEE051860EC1C003A3A0B /* MLPAutoCompletionObject.h */,
+				6BBBEE061860EC1C003A3A0B /* NSString+Levenshtein.h */,
+				6BBBEE071860EC1C003A3A0B /* NSString+Levenshtein.m */,
+			);
+			name = MLPAutoComplete;
+			path = ../MLPAutoComplete;
 			sourceTree = "<group>";
 		};
 		6BFEC89918454F580014AB6F /* Model */ = {
@@ -326,11 +356,14 @@
 				6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */,
 				6BAF9F3418357F45006BC3AD /* SPDetailViewController.m in Sources */,
 				6B446EE718413320007FA9FC /* KYPullToActionController.m in Sources */,
+				6BBBEE0C1861F9B3003A3A0B /* SPSuggestionFetcher.m in Sources */,
 				6BFEC8A8184928280014AB6F /* List.m in Sources */,
 				6BAF9F2418357F45006BC3AD /* main.m in Sources */,
 				6BAF9F2818357F45006BC3AD /* SPAppDelegate.m in Sources */,
 				6BAF9F3118357F45006BC3AD /* SPMasterViewController.m in Sources */,
 				6B446EEB1842AAF5007FA9FC /* SPInputCell.m in Sources */,
+				6BBBEE081860EC1C003A3A0B /* MLPAutoCompleteTextField.m in Sources */,
+				6BBBEE091860EC1C003A3A0B /* NSString+Levenshtein.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

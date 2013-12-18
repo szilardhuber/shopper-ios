@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "MLPAutoCompleteTextField.h"
 
 @class SPDetailViewController;
 
-@interface SPMasterViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+@interface SPMasterViewController : UITableViewController
+<NSFetchedResultsControllerDelegate, MLPAutoCompleteTextFieldDataSource>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

@@ -12,6 +12,7 @@
 
 #import "KYPullToActionController.h"
 #import "SPInputCell.h"
+#import "SPSuggestionFetcher.h"
 #import "Item.h"
 #import "List.h"
 
@@ -19,6 +20,7 @@
     KYPullToActionController* _pullToActionController;
     BOOL _userChange;
     List* _list;
+    SPSuggestionFetcher* _suggestionfetcher;
 }
 @end
 
@@ -37,6 +39,7 @@
 
 - (void)initialize
 {
+    _suggestionfetcher = SPSuggestionFetcher.new;
 }
 
 - (void)viewDidLoad
@@ -64,7 +67,7 @@
             [self insertNewObject:self];
         }];
         [self.tableView setDelegate:(id<UITableViewDelegate>)_pullToActionController];
-    }
+    }    
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,7 +112,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // KOTYO hack - remove it later
-    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_list.items count]];
+//    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_list.items count]];
 
     SPInputCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newitem" forIndexPath:indexPath];
 
@@ -221,11 +224,11 @@
         return _fetchedResultsController;
     }
     
-    //
+    // -- Create a placeholder list if needed
     NSEntityDescription *listEntity = [NSEntityDescription entityForName:@"List" inManagedObjectContext:self.managedObjectContext];
     NSFetchRequest* listRequest = [[NSFetchRequest alloc] init];
     [listRequest setEntity:listEntity];
-    [listRequest setFetchBatchSize:1];
+    [listRequest setFetchLimit:1];
     NSPredicate* listPredicate = [NSPredicate predicateWithFormat:@"name == %@", @"Main"];
     listRequest.predicate = listPredicate;
     NSError* err = nil;
@@ -417,4 +420,14 @@
     [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
 }
 
+#pragma mark - MLP Autocompletion Text Field data source
+- (void)autoCompleteTextField:(MLPAutoCompleteTextField *)textField
+ possibleCompletionsForString:(NSString *)string
+            completionHandler:(void(^)(NSArray *suggestions))handler
+{
+    [_suggestionfetcher giveSuggestionsFor:string
+                                 byHandler:handler];
+}
+
 @end
+

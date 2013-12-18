@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MLPAutoCompleteTextField.h"
 #import "Item.h"
 
 @interface SPInputCell : UITableViewCell <UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextField *inputField;
+@property (weak, nonatomic) IBOutlet MLPAutoCompleteTextField *inputField;
 @property (nonatomic, strong) Item *item;
 @property (copy) void(^editEndedBlock)(SPInputCell* cell);
 
