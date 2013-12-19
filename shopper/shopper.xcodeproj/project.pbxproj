@@ -28,10 +28,14 @@
 		6BBBEE081860EC1C003A3A0B /* MLPAutoCompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE021860EC1C003A3A0B /* MLPAutoCompleteTextField.m */; };
 		6BBBEE091860EC1C003A3A0B /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE071860EC1C003A3A0B /* NSString+Levenshtein.m */; };
 		6BBBEE0C1861F9B3003A3A0B /* SPSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */; };
+		6BBBEE131862F6F4003A3A0B /* RHManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE111862F6F4003A3A0B /* RHManagedObject.m */; };
+		6BBBEE1C1862F899003A3A0B /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE1B1862F899003A3A0B /* Item.m */; };
+		6BBBEE1F1862F899003A3A0B /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE1E1862F899003A3A0B /* List.m */; };
+		6BBBEE281862FA08003A3A0B /* ItemEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE271862FA08003A3A0B /* ItemEntity.m */; };
+		6BBBEE2B1862FA2F003A3A0B /* ListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE2A1862FA2F003A3A0B /* ListEntity.m */; };
+		6BBBEE2E1862FBB1003A3A0B /* RHManagedObjectContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE2D1862FBB1003A3A0B /* RHManagedObjectContextManager.m */; };
 		6BFEC88F18454DA50014AB6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BFEC88E18454DA50014AB6F /* CoreData.framework */; };
 		6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */; };
-		6BFEC8A5184928280014AB6F /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC8A4184928280014AB6F /* Item.m */; };
-		6BFEC8A8184928280014AB6F /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC8A7184928280014AB6F /* List.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,12 +84,20 @@
 		6BBBEE071860EC1C003A3A0B /* NSString+Levenshtein.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Levenshtein.m"; sourceTree = "<group>"; };
 		6BBBEE0A1861F9B3003A3A0B /* SPSuggestionFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSuggestionFetcher.h; sourceTree = "<group>"; };
 		6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSuggestionFetcher.m; sourceTree = "<group>"; };
+		6BBBEE101862F6F4003A3A0B /* RHManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHManagedObject.h; sourceTree = "<group>"; };
+		6BBBEE111862F6F4003A3A0B /* RHManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHManagedObject.m; sourceTree = "<group>"; };
+		6BBBEE1A1862F899003A3A0B /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		6BBBEE1B1862F899003A3A0B /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		6BBBEE1D1862F899003A3A0B /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
+		6BBBEE1E1862F899003A3A0B /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = List.m; sourceTree = "<group>"; };
+		6BBBEE261862FA08003A3A0B /* ItemEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemEntity.h; sourceTree = "<group>"; };
+		6BBBEE271862FA08003A3A0B /* ItemEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemEntity.m; sourceTree = "<group>"; };
+		6BBBEE291862FA2F003A3A0B /* ListEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListEntity.h; sourceTree = "<group>"; };
+		6BBBEE2A1862FA2F003A3A0B /* ListEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListEntity.m; sourceTree = "<group>"; };
+		6BBBEE2C1862FBB1003A3A0B /* RHManagedObjectContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHManagedObjectContextManager.h; sourceTree = "<group>"; };
+		6BBBEE2D1862FBB1003A3A0B /* RHManagedObjectContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHManagedObjectContextManager.m; sourceTree = "<group>"; };
 		6BFEC88E18454DA50014AB6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6BFEC89418454F0B0014AB6F /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		6BFEC8A3184928280014AB6F /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		6BFEC8A4184928280014AB6F /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
-		6BFEC8A6184928280014AB6F /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
-		6BFEC8A7184928280014AB6F /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = List.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +128,7 @@
 		6B446E72183ACE95007FA9FC /* External */ = {
 			isa = PBXGroup;
 			children = (
+				6BBBEE0D1862F6F4003A3A0B /* RHManagedObject */,
 				6BBBEE001860EC1C003A3A0B /* MLPAutoComplete */,
 				6B446EE418413320007FA9FC /* PullToAction */,
 			);
@@ -189,7 +202,6 @@
 				6BBBEE0A1861F9B3003A3A0B /* SPSuggestionFetcher.h */,
 				6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */,
 				6BAF9F3518357F45006BC3AD /* Images.xcassets */,
-				6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */,
 				6BFEC89918454F580014AB6F /* Model */,
 				6BAF9F1E18357F45006BC3AD /* Supporting Files */,
 			);
@@ -240,13 +252,30 @@
 			path = ../MLPAutoComplete;
 			sourceTree = "<group>";
 		};
+		6BBBEE0D1862F6F4003A3A0B /* RHManagedObject */ = {
+			isa = PBXGroup;
+			children = (
+				6BBBEE101862F6F4003A3A0B /* RHManagedObject.h */,
+				6BBBEE111862F6F4003A3A0B /* RHManagedObject.m */,
+				6BBBEE2C1862FBB1003A3A0B /* RHManagedObjectContextManager.h */,
+				6BBBEE2D1862FBB1003A3A0B /* RHManagedObjectContextManager.m */,
+			);
+			name = RHManagedObject;
+			path = ../RHManagedObject;
+			sourceTree = "<group>";
+		};
 		6BFEC89918454F580014AB6F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				6BFEC8A6184928280014AB6F /* List.h */,
-				6BFEC8A7184928280014AB6F /* List.m */,
-				6BFEC8A3184928280014AB6F /* Item.h */,
-				6BFEC8A4184928280014AB6F /* Item.m */,
+				6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */,
+				6BBBEE291862FA2F003A3A0B /* ListEntity.h */,
+				6BBBEE2A1862FA2F003A3A0B /* ListEntity.m */,
+				6BBBEE261862FA08003A3A0B /* ItemEntity.h */,
+				6BBBEE271862FA08003A3A0B /* ItemEntity.m */,
+				6BBBEE1D1862F899003A3A0B /* List.h */,
+				6BBBEE1E1862F899003A3A0B /* List.m */,
+				6BBBEE1A1862F899003A3A0B /* Item.h */,
+				6BBBEE1B1862F899003A3A0B /* Item.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -352,17 +381,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BFEC8A5184928280014AB6F /* Item.m in Sources */,
+				6BBBEE2B1862FA2F003A3A0B /* ListEntity.m in Sources */,
+				6BBBEE281862FA08003A3A0B /* ItemEntity.m in Sources */,
 				6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */,
 				6BAF9F3418357F45006BC3AD /* SPDetailViewController.m in Sources */,
 				6B446EE718413320007FA9FC /* KYPullToActionController.m in Sources */,
 				6BBBEE0C1861F9B3003A3A0B /* SPSuggestionFetcher.m in Sources */,
-				6BFEC8A8184928280014AB6F /* List.m in Sources */,
+				6BBBEE131862F6F4003A3A0B /* RHManagedObject.m in Sources */,
+				6BBBEE2E1862FBB1003A3A0B /* RHManagedObjectContextManager.m in Sources */,
 				6BAF9F2418357F45006BC3AD /* main.m in Sources */,
 				6BAF9F2818357F45006BC3AD /* SPAppDelegate.m in Sources */,
+				6BBBEE1F1862F899003A3A0B /* List.m in Sources */,
 				6BAF9F3118357F45006BC3AD /* SPMasterViewController.m in Sources */,
 				6B446EEB1842AAF5007FA9FC /* SPInputCell.m in Sources */,
 				6BBBEE081860EC1C003A3A0B /* MLPAutoCompleteTextField.m in Sources */,
+				6BBBEE1C1862F899003A3A0B /* Item.m in Sources */,
 				6BBBEE091860EC1C003A3A0B /* NSString+Levenshtein.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -602,7 +635,8 @@
 				6BFEC89418454F0B0014AB6F /* DataModel.xcdatamodel */,
 			);
 			currentVersion = 6BFEC89418454F0B0014AB6F /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
+			name = DataModel.xcdatamodeld;
+			path = ../DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

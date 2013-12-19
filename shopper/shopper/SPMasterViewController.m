@@ -19,7 +19,7 @@
 @interface SPMasterViewController () {
     KYPullToActionController* _pullToActionController;
     BOOL _userChange;
-    List* _list;
+    List* _mainList;
     SPSuggestionFetcher* _suggestionfetcher;
 }
 @end
@@ -79,21 +79,12 @@
 
 - (void)insertNewObject:(id)sender
 {
-    //_userChange = YES;
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
-    Item* newItem = (Item*)[NSEntityDescription insertNewObjectForEntityForName:[entity name] inManagedObjectContext:context];
-    
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][0];
+
+    Item* newItem = [Item newEntity];
     newItem.orderingID = [NSNumber numberWithUnsignedInteger:[sectionInfo numberOfObjects]];
-    newItem.list = _list;
-    
-    // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
+    newItem.list = _mainList;
+    [Item commit];
 }
 
 #pragma mark - Table View
@@ -177,18 +168,6 @@
     if (toRow < fromRow) {
         movement = -1;
     }
-    //    if (toRow > fromRow) { // Moved down
-    //        Item* prevItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow-1];
-    //        if (prevItem.done.boolValue) {
-    //            affectedItem.done = [NSNumber numberWithBool:YES];
-    //        }
-    //    }
-    //    if (toRow < fromRow) { // Moved up
-    //        Item* nextItem = [self.fetchedResultsController.fetchedObjects objectAtIndex:toRow+1];
-    //        if (!nextItem.done.boolValue) {
-    //            affectedItem.done = [NSNumber numberWithBool:NO];
-    //        }
-    //    }
     
     // All the other rows
     for (NSUInteger currentRow = toRow; fromRow != currentRow; currentRow -= delta) {
@@ -209,6 +188,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //TODO kotyo: implement if needed!
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -225,49 +205,35 @@
     }
     
     // -- Create a placeholder list if needed
-    NSEntityDescription *listEntity = [NSEntityDescription entityForName:@"List" inManagedObjectContext:self.managedObjectContext];
-    NSFetchRequest* listRequest = [[NSFetchRequest alloc] init];
-    [listRequest setEntity:listEntity];
-    [listRequest setFetchLimit:1];
-    NSPredicate* listPredicate = [NSPredicate predicateWithFormat:@"name == %@", @"Main"];
-    listRequest.predicate = listPredicate;
-    NSError* err = nil;
-    _list = (List*)[self.managedObjectContext executeFetchRequest:listRequest error:&err].lastObject;
-    if (err)
-    {
-        NSLog(@"Error while fetching objects: %@", [err description]);
-        return nil;
-    }
-    if (_list == nil) { //create
-        _list = (List*)[NSEntityDescription insertNewObjectForEntityForName:[listEntity name] inManagedObjectContext:self.managedObjectContext];
-        _list.name = @"Main";
-        if (![self.managedObjectContext save:&err]) {
-            NSLog(@"Unresolved error %@, %@", err, [err userInfo]);
-            abort();
+    if (!_mainList) {
+        _mainList = [List getWithPredicate:[NSPredicate predicateWithFormat:@"name == %@", @"Main"] error:NULL];
+        if (!_mainList) {
+            _mainList = [List newEntity];
+            _mainList.name = @"Main";
+            [List commit];
         }
     }
     
+    NSManagedObjectContext* context = [Item managedObjectContextForCurrentThreadWithError:NULL];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Item" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:[Item entityName] inManagedObjectContext:context];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Set predicate
-    NSPredicate* itemPredicate = [NSPredicate predicateWithFormat:@"list == %@", _list];
+    NSPredicate* itemPredicate = [NSPredicate predicateWithFormat:@"deleted == NO && list == %@", _mainList];
     fetchRequest.predicate = itemPredicate;
     
     // Edit the sort key as appropriate.
     NSSortDescriptor *sortDescriptorOrderingID = [[NSSortDescriptor alloc] initWithKey:@"orderingID" ascending:NO];
-    NSArray *sortDescriptors = @[sortDescriptorOrderingID];
-    
-    [fetchRequest setSortDescriptors:sortDescriptors];
+    [fetchRequest setSortDescriptors:@[sortDescriptorOrderingID]];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Master"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -366,7 +332,6 @@
     
     if (([currentIndex row] > [lastUnfinishedIndex row] && ![item.done boolValue]) ||
         ([currentIndex row] < [lastUnfinishedIndex row] && [item.done boolValue])) {
-        NSLog(@"move...");
         [self moveItemsFromRow:[currentIndex row] toRow:[lastUnfinishedIndex row]];
     }
 }
@@ -381,13 +346,11 @@
         [self.tableView reloadData];
     }
     // KOTYO hack - remove it later
-    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_list.items count]];
+    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_mainList.items count]];
     
     _userChange = NO;
     
-    NSError* err = nil;
-    [self.fetchedResultsController.managedObjectContext save:&err];
-    
+    [Item commit];    
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -416,8 +379,7 @@
     }
     
     // Delete the element
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+    [[self.fetchedResultsController objectAtIndexPath:indexPath] delete];
 }
 
 #pragma mark - MLP Autocompletion Text Field data source

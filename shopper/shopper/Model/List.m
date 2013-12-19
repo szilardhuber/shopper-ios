@@ -2,17 +2,24 @@
 //  List.m
 //  shopper
 //
-//  Created by Tamás Koródi on 29/11/13.
+//  Created by Tamás Koródi on 19/12/13.
 //  Copyright (c) 2013 Tamás Koródi. All rights reserved.
 //
 
 #import "List.h"
-#import "Item.h"
-
 
 @implementation List
 
-@dynamic name;
-@dynamic items;
+// This returns the name of the Entity it extends (basically the name of the superclass)
++ (NSString *)entityName
+{
+    return @"ListEntity";
+}
+
+// This returns the name of your xcdatamodeld model, without the extension
++ (NSString *)modelName
+{
+    return @"DataModel";
+}
 
 @end

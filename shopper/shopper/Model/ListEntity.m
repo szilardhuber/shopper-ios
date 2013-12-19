@@ -1,5 +1,5 @@
 //
-//  List.h
+//  ListEntity.m
 //  shopper
 //
 //  Created by Tamás Koródi on 19/12/13.
@@ -7,8 +7,12 @@
 //
 
 #import "ListEntity.h"
+#import "ItemEntity.h"
 
-@interface List : ListEntity
-+ (NSString *)entityName;
-+ (NSString *)modelName;
+
+@implementation ListEntity
+
+@dynamic name;
+@dynamic items;
+
 @end

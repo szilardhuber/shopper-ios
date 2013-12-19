@@ -25,29 +25,22 @@
     return self;
 }
 
-- (NSManagedObjectContext*)managedObjectContext {
-    SPAppDelegate* appDelegate = [[UIApplication sharedApplication] delegate];
-    return [appDelegate managedObjectContext];
-}
-
 - (NSArray*)fetchMatchingFor:(NSString*)text
 {
-    NSEntityDescription *listEntity = [NSEntityDescription entityForName:@"Item" inManagedObjectContext:self.managedObjectContext];
-    NSFetchRequest* listRequest = [[NSFetchRequest alloc] init];
-    [listRequest setEntity:listEntity];
-    [listRequest setFetchLimit:66];
-    NSPredicate* listPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", text];
-    listRequest.predicate = listPredicate;
     NSError* err = nil;
-    NSArray* fetchResult = [self.managedObjectContext executeFetchRequest:listRequest error:&err];
+    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", text];
+    NSArray* fetchedResult = [Item fetchWithPredicate:predicate
+                                       sortDescriptor:nil
+                                            withLimit:66
+                                                error:&err];
     if (err)
     {
         NSLog(@"Error while fetching objects: %@", [err description]);
         return nil;
     }
-    
+
     NSMutableArray* suggestions = NSMutableArray.new;
-    for (Item* item in fetchResult) {
+    for (Item* item in fetchedResult) {
         [suggestions addObject:item.name];
     }
     return suggestions;
@@ -57,10 +50,8 @@
                  byHandler:(void(^)(NSArray *suggestions))handler
 {
     dispatch_async(_queue, ^{
-        __block NSArray* result = nil;
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            result = [self fetchMatchingFor:text];
-        });
+        NSArray* result = nil;
+        result = [self fetchMatchingFor:text];
         handler(result);
     });
 }
