@@ -9,7 +9,8 @@
 #import "SPSuggestionFetcher.h"
 #import "SPAppDelegate.h"
 
-#import "Item.h"
+#import "Token.h"
+#import "ItemName.h"
 
 @implementation SPSuggestionFetcher
 {
@@ -25,35 +26,37 @@
     return self;
 }
 
-- (NSArray*)fetchMatchingFor:(NSString*)text
-{
-    NSError* err = nil;
-    NSPredicate* predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", text];
-    NSArray* fetchedResult = [Item fetchWithPredicate:predicate
-                                       sortDescriptor:nil
-                                            withLimit:66
-                                                error:&err];
-    if (err)
-    {
-        NSLog(@"Error while fetching objects: %@", [err description]);
-        return nil;
-    }
-
-    NSMutableArray* suggestions = NSMutableArray.new;
-    for (Item* item in fetchedResult) {
-        [suggestions addObject:item.name];
-    }
-    return suggestions;
-}
 
 - (void)giveSuggestionsFor:(NSString*)text
                  byHandler:(void(^)(NSArray *suggestions))handler
 {
     dispatch_async(_queue, ^{
-        NSArray* result = nil;
-        result = [self fetchMatchingFor:text];
-        handler(result);
+        NSMutableArray* subPredicates = NSMutableArray.new;
+        for (NSString* tokenName in [Item tokenizeString:text]) {
+            NSPredicate* pred = [NSPredicate predicateWithFormat:@"ANY tokens.token BEGINSWITH %@", tokenName];
+            [subPredicates addObject:pred];
+        }
+        NSPredicate* predicate = [NSCompoundPredicate orPredicateWithSubpredicates:subPredicates];
+        
+        NSError* err = nil;
+        NSArray* fetchedResult = [ItemName distinctValuesWithAttribute:@"name"
+                                                         predicate:predicate
+                                                             error:&err];
+        handler(fetchedResult);
     });
+    
+    
+    // KOTYO HACK
+    NSArray* tokenArr = [Token fetchAllWithError:NULL];
+    for (Token* t in tokenArr) {
+        NSMutableArray* items = NSMutableArray.new;
+        for (ItemName* i in t.names) {
+            [items addObject:i.name];
+        }
+        NSLog(@"token name: %@, items:[%@]", t.token, items);
+    }
+    NSLog(@"----------------------------------- Token count: %lu", (unsigned long)[Token countWithError:NULL]);
+
 }
 
 

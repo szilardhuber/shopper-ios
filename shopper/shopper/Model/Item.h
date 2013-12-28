@@ -11,4 +11,10 @@
 @interface Item : ItemEntity
 + (NSString *)entityName;
 + (NSString *)modelName;
+
++ (NSSet*)tokenizeString:(NSString*)string;
+- (void)refreshTokensForName;
+
+- (void)setNameString:(NSString*)name;
+- (NSString*)nameString;
 @end

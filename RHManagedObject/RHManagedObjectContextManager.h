@@ -42,4 +42,5 @@
 -(BOOL)doesRequireMigrationWithError:(NSError **)error;
 -(NSString *)applicationDocumentsDirectory;
 
+-(void)mocDidSave:(NSNotification *)saveNotification;
 @end

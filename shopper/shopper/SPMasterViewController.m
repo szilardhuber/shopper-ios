@@ -8,12 +8,11 @@
 
 #import "SPMasterViewController.h"
 
-#import "SPDetailViewController.h"
-
 #import "KYPullToActionController.h"
 #import "SPInputCell.h"
 #import "SPSuggestionFetcher.h"
 #import "Item.h"
+#import "ItemName.h"
 #import "List.h"
 
 @interface SPMasterViewController () {
@@ -174,7 +173,6 @@
         Item* item = [self.fetchedResultsController.fetchedObjects objectAtIndex:currentRow];
         item.orderingID = [NSNumber numberWithInteger:item.orderingID.intValue+delta];
     }
-    
     return movement;
 }
 
@@ -217,14 +215,16 @@
     NSManagedObjectContext* context = [Item managedObjectContextForCurrentThreadWithError:NULL];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:[Item entityName] inManagedObjectContext:context];
+    NSEntityDescription *entity = [Item entityDescriptionWithError:NULL];
     [fetchRequest setEntity:entity];
+    
+    [fetchRequest setRelationshipKeyPathsForPrefetching:@[@"name.name"]];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Set predicate
-    NSPredicate* itemPredicate = [NSPredicate predicateWithFormat:@"deleted == NO && list == %@", _mainList];
+    NSPredicate* itemPredicate = [NSPredicate predicateWithFormat:@"list == %@", _mainList];
     fetchRequest.predicate = itemPredicate;
     
     // Edit the sort key as appropriate.
@@ -233,6 +233,7 @@
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
+    [NSFetchedResultsController deleteCacheWithName:@"Master"];
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:context sectionNameKeyPath:nil cacheName:@"Master"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
@@ -275,6 +276,7 @@
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
+    Item* changedItem = (Item*)anObject;
     if (!_userChange) {
         UITableView *tableView = self.tableView;
         switch(type) {
@@ -299,7 +301,6 @@
     
     // No matter if it is a user change we should check and update position if needed
     if (type == NSFetchedResultsChangeUpdate) {
-        Item* changedItem = (Item*)anObject;
         [self updateItemPositionAccordingDoneStatus:changedItem];
     }
 }
@@ -346,11 +347,11 @@
         [self.tableView reloadData];
     }
     // KOTYO hack - remove it later
-    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_mainList.items count]];
+    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu [%lu]", (unsigned long)[self.fetchedResultsController.fetchedObjects count], (unsigned long)[_mainList.items count]];
     
     _userChange = NO;
     
-    [Item commit];    
+    [Item commit];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
@@ -360,7 +361,7 @@
     
     [inputCell setItem:item];
     inputCell.editEndedBlock = ^(SPInputCell* cell) {
-        if ([cell.item.name isEqualToString:@""]) {
+        if (cell.item.name.name == nil || [cell.item.name.name isEqualToString:@""]) {
             NSIndexPath* deletableIndexPath = [self.tableView indexPathForCell:cell];
             [self deleteItemAtIdexPath:deletableIndexPath];
         }
@@ -379,7 +380,8 @@
     }
     
     // Delete the element
-    [[self.fetchedResultsController objectAtIndexPath:indexPath] delete];
+    Item* deletableItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [deletableItem delete];
 }
 
 #pragma mark - MLP Autocompletion Text Field data source

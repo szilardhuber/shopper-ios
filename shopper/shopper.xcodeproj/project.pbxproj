@@ -18,7 +18,6 @@
 		6BAF9F2B18357F45006BC3AD /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BAF9F2918357F45006BC3AD /* Main_iPhone.storyboard */; };
 		6BAF9F2E18357F45006BC3AD /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6BAF9F2C18357F45006BC3AD /* Main_iPad.storyboard */; };
 		6BAF9F3118357F45006BC3AD /* SPMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BAF9F3018357F45006BC3AD /* SPMasterViewController.m */; };
-		6BAF9F3418357F45006BC3AD /* SPDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BAF9F3318357F45006BC3AD /* SPDetailViewController.m */; };
 		6BAF9F3618357F45006BC3AD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BAF9F3518357F45006BC3AD /* Images.xcassets */; };
 		6BAF9F3D18357F45006BC3AD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BAF9F3C18357F45006BC3AD /* XCTest.framework */; };
 		6BAF9F3E18357F45006BC3AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BAF9F1718357F45006BC3AD /* Foundation.framework */; };
@@ -29,11 +28,15 @@
 		6BBBEE091860EC1C003A3A0B /* NSString+Levenshtein.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE071860EC1C003A3A0B /* NSString+Levenshtein.m */; };
 		6BBBEE0C1861F9B3003A3A0B /* SPSuggestionFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */; };
 		6BBBEE131862F6F4003A3A0B /* RHManagedObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE111862F6F4003A3A0B /* RHManagedObject.m */; };
-		6BBBEE1C1862F899003A3A0B /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE1B1862F899003A3A0B /* Item.m */; };
 		6BBBEE1F1862F899003A3A0B /* List.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE1E1862F899003A3A0B /* List.m */; };
-		6BBBEE281862FA08003A3A0B /* ItemEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE271862FA08003A3A0B /* ItemEntity.m */; };
-		6BBBEE2B1862FA2F003A3A0B /* ListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE2A1862FA2F003A3A0B /* ListEntity.m */; };
 		6BBBEE2E1862FBB1003A3A0B /* RHManagedObjectContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE2D1862FBB1003A3A0B /* RHManagedObjectContextManager.m */; };
+		6BBBEE3418639EB2003A3A0B /* Token.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE3318639EB2003A3A0B /* Token.m */; };
+		6BBBEE3718639F6D003A3A0B /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BBBEE3618639F6D003A3A0B /* Item.m */; };
+		6BFE8B78186EDE00005575E2 /* ItemNameEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE8B77186EDE00005575E2 /* ItemNameEntity.m */; };
+		6BFE8B7B186EDE01005575E2 /* TokenEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE8B7A186EDE01005575E2 /* TokenEntity.m */; };
+		6BFE8B7E186EDE01005575E2 /* ItemEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE8B7D186EDE01005575E2 /* ItemEntity.m */; };
+		6BFE8B81186EDE01005575E2 /* ListEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE8B80186EDE01005575E2 /* ListEntity.m */; };
+		6BFE8B84186EDE3E005575E2 /* ItemName.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BFE8B83186EDE3E005575E2 /* ItemName.m */; };
 		6BFEC88F18454DA50014AB6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BFEC88E18454DA50014AB6F /* CoreData.framework */; };
 		6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
@@ -67,8 +70,6 @@
 		6BAF9F2D18357F45006BC3AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		6BAF9F2F18357F45006BC3AD /* SPMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMasterViewController.h; sourceTree = "<group>"; };
 		6BAF9F3018357F45006BC3AD /* SPMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMasterViewController.m; sourceTree = "<group>"; };
-		6BAF9F3218357F45006BC3AD /* SPDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDetailViewController.h; sourceTree = "<group>"; };
-		6BAF9F3318357F45006BC3AD /* SPDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPDetailViewController.m; sourceTree = "<group>"; };
 		6BAF9F3518357F45006BC3AD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6BAF9F3B18357F45006BC3AD /* shopperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = shopperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BAF9F3C18357F45006BC3AD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -86,16 +87,24 @@
 		6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSuggestionFetcher.m; sourceTree = "<group>"; };
 		6BBBEE101862F6F4003A3A0B /* RHManagedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHManagedObject.h; sourceTree = "<group>"; };
 		6BBBEE111862F6F4003A3A0B /* RHManagedObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHManagedObject.m; sourceTree = "<group>"; };
-		6BBBEE1A1862F899003A3A0B /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		6BBBEE1B1862F899003A3A0B /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		6BBBEE1D1862F899003A3A0B /* List.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
 		6BBBEE1E1862F899003A3A0B /* List.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = List.m; sourceTree = "<group>"; };
-		6BBBEE261862FA08003A3A0B /* ItemEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemEntity.h; sourceTree = "<group>"; };
-		6BBBEE271862FA08003A3A0B /* ItemEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemEntity.m; sourceTree = "<group>"; };
-		6BBBEE291862FA2F003A3A0B /* ListEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListEntity.h; sourceTree = "<group>"; };
-		6BBBEE2A1862FA2F003A3A0B /* ListEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListEntity.m; sourceTree = "<group>"; };
 		6BBBEE2C1862FBB1003A3A0B /* RHManagedObjectContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHManagedObjectContextManager.h; sourceTree = "<group>"; };
 		6BBBEE2D1862FBB1003A3A0B /* RHManagedObjectContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHManagedObjectContextManager.m; sourceTree = "<group>"; };
+		6BBBEE3218639EB2003A3A0B /* Token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Token.h; sourceTree = "<group>"; };
+		6BBBEE3318639EB2003A3A0B /* Token.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Token.m; sourceTree = "<group>"; };
+		6BBBEE3518639F6D003A3A0B /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		6BBBEE3618639F6D003A3A0B /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		6BFE8B76186EDE00005575E2 /* ItemNameEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemNameEntity.h; sourceTree = "<group>"; };
+		6BFE8B77186EDE00005575E2 /* ItemNameEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemNameEntity.m; sourceTree = "<group>"; };
+		6BFE8B79186EDE01005575E2 /* TokenEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenEntity.h; sourceTree = "<group>"; };
+		6BFE8B7A186EDE01005575E2 /* TokenEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenEntity.m; sourceTree = "<group>"; };
+		6BFE8B7C186EDE01005575E2 /* ItemEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemEntity.h; sourceTree = "<group>"; };
+		6BFE8B7D186EDE01005575E2 /* ItemEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemEntity.m; sourceTree = "<group>"; };
+		6BFE8B7F186EDE01005575E2 /* ListEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListEntity.h; sourceTree = "<group>"; };
+		6BFE8B80186EDE01005575E2 /* ListEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListEntity.m; sourceTree = "<group>"; };
+		6BFE8B82186EDE3E005575E2 /* ItemName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemName.h; sourceTree = "<group>"; };
+		6BFE8B83186EDE3E005575E2 /* ItemName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemName.m; sourceTree = "<group>"; };
 		6BFEC88E18454DA50014AB6F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6BFEC89418454F0B0014AB6F /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -197,8 +206,6 @@
 				6BAF9F2C18357F45006BC3AD /* Main_iPad.storyboard */,
 				6BAF9F2F18357F45006BC3AD /* SPMasterViewController.h */,
 				6BAF9F3018357F45006BC3AD /* SPMasterViewController.m */,
-				6BAF9F3218357F45006BC3AD /* SPDetailViewController.h */,
-				6BAF9F3318357F45006BC3AD /* SPDetailViewController.m */,
 				6BBBEE0A1861F9B3003A3A0B /* SPSuggestionFetcher.h */,
 				6BBBEE0B1861F9B3003A3A0B /* SPSuggestionFetcher.m */,
 				6BAF9F3518357F45006BC3AD /* Images.xcassets */,
@@ -268,14 +275,22 @@
 			isa = PBXGroup;
 			children = (
 				6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */,
-				6BBBEE291862FA2F003A3A0B /* ListEntity.h */,
-				6BBBEE2A1862FA2F003A3A0B /* ListEntity.m */,
-				6BBBEE261862FA08003A3A0B /* ItemEntity.h */,
-				6BBBEE271862FA08003A3A0B /* ItemEntity.m */,
+				6BBBEE3518639F6D003A3A0B /* Item.h */,
+				6BBBEE3618639F6D003A3A0B /* Item.m */,
+				6BFE8B7C186EDE01005575E2 /* ItemEntity.h */,
+				6BFE8B7D186EDE01005575E2 /* ItemEntity.m */,
+				6BFE8B82186EDE3E005575E2 /* ItemName.h */,
+				6BFE8B83186EDE3E005575E2 /* ItemName.m */,
+				6BFE8B76186EDE00005575E2 /* ItemNameEntity.h */,
+				6BFE8B77186EDE00005575E2 /* ItemNameEntity.m */,
 				6BBBEE1D1862F899003A3A0B /* List.h */,
 				6BBBEE1E1862F899003A3A0B /* List.m */,
-				6BBBEE1A1862F899003A3A0B /* Item.h */,
-				6BBBEE1B1862F899003A3A0B /* Item.m */,
+				6BFE8B7F186EDE01005575E2 /* ListEntity.h */,
+				6BFE8B80186EDE01005575E2 /* ListEntity.m */,
+				6BBBEE3218639EB2003A3A0B /* Token.h */,
+				6BBBEE3318639EB2003A3A0B /* Token.m */,
+				6BFE8B79186EDE01005575E2 /* TokenEntity.h */,
+				6BFE8B7A186EDE01005575E2 /* TokenEntity.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -381,21 +396,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6BBBEE2B1862FA2F003A3A0B /* ListEntity.m in Sources */,
-				6BBBEE281862FA08003A3A0B /* ItemEntity.m in Sources */,
+				6BFE8B81186EDE01005575E2 /* ListEntity.m in Sources */,
+				6BBBEE3718639F6D003A3A0B /* Item.m in Sources */,
 				6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */,
-				6BAF9F3418357F45006BC3AD /* SPDetailViewController.m in Sources */,
 				6B446EE718413320007FA9FC /* KYPullToActionController.m in Sources */,
 				6BBBEE0C1861F9B3003A3A0B /* SPSuggestionFetcher.m in Sources */,
 				6BBBEE131862F6F4003A3A0B /* RHManagedObject.m in Sources */,
 				6BBBEE2E1862FBB1003A3A0B /* RHManagedObjectContextManager.m in Sources */,
 				6BAF9F2418357F45006BC3AD /* main.m in Sources */,
 				6BAF9F2818357F45006BC3AD /* SPAppDelegate.m in Sources */,
+				6BFE8B7E186EDE01005575E2 /* ItemEntity.m in Sources */,
 				6BBBEE1F1862F899003A3A0B /* List.m in Sources */,
+				6BFE8B84186EDE3E005575E2 /* ItemName.m in Sources */,
+				6BFE8B78186EDE00005575E2 /* ItemNameEntity.m in Sources */,
+				6BFE8B7B186EDE01005575E2 /* TokenEntity.m in Sources */,
 				6BAF9F3118357F45006BC3AD /* SPMasterViewController.m in Sources */,
 				6B446EEB1842AAF5007FA9FC /* SPInputCell.m in Sources */,
 				6BBBEE081860EC1C003A3A0B /* MLPAutoCompleteTextField.m in Sources */,
-				6BBBEE1C1862F899003A3A0B /* Item.m in Sources */,
+				6BBBEE3418639EB2003A3A0B /* Token.m in Sources */,
 				6BBBEE091860EC1C003A3A0B /* NSString+Levenshtein.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

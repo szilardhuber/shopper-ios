@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="ItemEntity" representedClassName="Item" syncable="YES">
-        <attribute name="deleted" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="done" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="orderingID" attributeType="Integer 32" defaultValueString="0" indexed="YES" syncable="YES"/>
         <attribute name="quantity" attributeType="Integer 32" defaultValueString="1" syncable="YES"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListEntity" inverseName="items" inverseEntity="ListEntity" syncable="YES"/>
+        <relationship name="name" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ItemNameEntity" inverseName="item" inverseEntity="ItemNameEntity" syncable="YES"/>
         <compoundIndexes>
             <compoundIndex>
                 <index value="list"/>
-                <index value="deleted"/>
                 <index value="orderingID"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
+    <entity name="ItemNameEntity" representedClassName="ItemName" syncable="YES">
+        <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="item" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ItemEntity" inverseName="name" inverseEntity="ItemEntity" syncable="YES"/>
+        <relationship name="tokens" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TokenEntity" inverseName="names" inverseEntity="TokenEntity" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="name"/>
             </compoundIndex>
         </compoundIndexes>
     </entity>
@@ -19,8 +27,19 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ItemEntity" inverseName="list" inverseEntity="ItemEntity" syncable="YES"/>
     </entity>
+    <entity name="TokenEntity" representedClassName="Token" syncable="YES">
+        <attribute name="token" attributeType="String" minValueString="1" indexed="YES" syncable="YES"/>
+        <relationship name="names" toMany="YES" deletionRule="Nullify" destinationEntity="ItemNameEntity" inverseName="tokens" inverseEntity="ItemNameEntity" syncable="YES"/>
+        <compoundIndexes>
+            <compoundIndex>
+                <index value="token"/>
+            </compoundIndex>
+        </compoundIndexes>
+    </entity>
     <elements>
-        <element name="ItemEntity" positionX="0" positionY="0" width="128" height="133"/>
-        <element name="ListEntity" positionX="160" positionY="192" width="128" height="73"/>
+        <element name="ItemEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ListEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="TokenEntity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ItemNameEntity" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

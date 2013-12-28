@@ -1,18 +1,14 @@
 //
-//  ListEntity.m
+//  ItemName.h
 //  shopper
 //
 //  Created by Tamás Koródi on 28/12/13.
 //  Copyright (c) 2013 Tamás Koródi. All rights reserved.
 //
 
-#import "ListEntity.h"
-#import "ItemEntity.h"
+#import "ItemNameEntity.h"
 
-
-@implementation ListEntity
-
-@dynamic name;
-@dynamic items;
-
+@interface ItemName : ItemNameEntity
++ (NSString *)entityName;
++ (NSString *)modelName;
 @end

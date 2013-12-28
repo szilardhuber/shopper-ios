@@ -1,18 +1,18 @@
 //
-//  ListEntity.m
+//  TokenEntity.m
 //  shopper
 //
 //  Created by Tamás Koródi on 28/12/13.
 //  Copyright (c) 2013 Tamás Koródi. All rights reserved.
 //
 
-#import "ListEntity.h"
-#import "ItemEntity.h"
+#import "TokenEntity.h"
+#import "ItemNameEntity.h"
 
 
-@implementation ListEntity
+@implementation TokenEntity
 
-@dynamic name;
-@dynamic items;
+@dynamic token;
+@dynamic names;
 
 @end
