@@ -45,14 +45,18 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-
+    //self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem =[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_lock_HR"] style: UIBarButtonItemStylePlain target:self action:@selector(lockScreen:)];
+    
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (SPDetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
     // Navigation controller
     [[self.navigationController navigationBar] setTintColor:[UIColor greenColor]];
+    [[self.navigationController navigationBar] setBarTintColor:[UIColor colorWithRed:0.133 green:0.133 blue:0.133 alpha:1]]; /*#222222*/
+    [[self.navigationController navigationBar] setTranslucent:NO];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopzenion"]];
     
     // Pull to add
     if (!_pullToActionController) {
@@ -74,6 +78,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     self.fetchedResultsController = nil;
+}
+
+- (void)lockScreen:(id)sender
+{
+    
 }
 
 - (void)insertNewObject:(id)sender
