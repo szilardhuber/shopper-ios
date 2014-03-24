@@ -40,6 +40,9 @@
 		6BFEC88F18454DA50014AB6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BFEC88E18454DA50014AB6F /* CoreData.framework */; };
 		6BFEC89518454F0B0014AB6F /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6BFEC89318454F0B0014AB6F /* DataModel.xcdatamodeld */; };
 		7B0E26AD18A14EE500FAA017 /* SPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E26AC18A14EE500FAA017 /* SPNavigationController.m */; };
+		7B27F30118D2FB7200D61099 /* ListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B27F30018D2FB7200D61099 /* ListTableViewCell.m */; };
+		7BB7ACAE18DC75800001FCAF /* SPGradientColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB7ACAD18DC75800001FCAF /* SPGradientColor.m */; };
+		7BB7ACB118E0855B0001FCAF /* SPRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB7ACB018E0855B0001FCAF /* SPRowView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +113,12 @@
 		6BFEC89418454F0B0014AB6F /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		7B0E26AB18A14EE500FAA017 /* SPNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPNavigationController.h; sourceTree = "<group>"; };
 		7B0E26AC18A14EE500FAA017 /* SPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPNavigationController.m; sourceTree = "<group>"; };
+		7B27F2FF18D2FB7200D61099 /* ListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListTableViewCell.h; sourceTree = "<group>"; };
+		7B27F30018D2FB7200D61099 /* ListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListTableViewCell.m; sourceTree = "<group>"; };
+		7BB7ACAC18DC75800001FCAF /* SPGradientColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGradientColor.h; sourceTree = "<group>"; };
+		7BB7ACAD18DC75800001FCAF /* SPGradientColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGradientColor.m; sourceTree = "<group>"; };
+		7BB7ACAF18E0855B0001FCAF /* SPRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRowView.h; sourceTree = "<group>"; };
+		7BB7ACB018E0855B0001FCAF /* SPRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRowView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +169,8 @@
 		6B446EE81842AADD007FA9FC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7BB7ACAF18E0855B0001FCAF /* SPRowView.h */,
+				7BB7ACB018E0855B0001FCAF /* SPRowView.m */,
 				6B446EE91842AAF5007FA9FC /* SPInputCell.h */,
 				6B446EEA1842AAF5007FA9FC /* SPInputCell.m */,
 			);
@@ -203,6 +214,8 @@
 		6BAF9F1D18357F45006BC3AD /* shopper */ = {
 			isa = PBXGroup;
 			children = (
+				7B27F2FF18D2FB7200D61099 /* ListTableViewCell.h */,
+				7B27F30018D2FB7200D61099 /* ListTableViewCell.m */,
 				6BAF9F2618357F45006BC3AD /* SPAppDelegate.h */,
 				6BAF9F2718357F45006BC3AD /* SPAppDelegate.m */,
 				6BAF9F2918357F45006BC3AD /* Main_iPhone.storyboard */,
@@ -216,6 +229,8 @@
 				6BAF9F1E18357F45006BC3AD /* Supporting Files */,
 				7B0E26AB18A14EE500FAA017 /* SPNavigationController.h */,
 				7B0E26AC18A14EE500FAA017 /* SPNavigationController.m */,
+				7BB7ACAC18DC75800001FCAF /* SPGradientColor.h */,
+				7BB7ACAD18DC75800001FCAF /* SPGradientColor.m */,
 			);
 			path = shopper;
 			sourceTree = "<group>";
@@ -422,7 +437,10 @@
 				6B446EEB1842AAF5007FA9FC /* SPInputCell.m in Sources */,
 				6BBBEE081860EC1C003A3A0B /* MLPAutoCompleteTextField.m in Sources */,
 				6BBBEE3418639EB2003A3A0B /* Token.m in Sources */,
+				7B27F30118D2FB7200D61099 /* ListTableViewCell.m in Sources */,
 				7B0E26AD18A14EE500FAA017 /* SPNavigationController.m in Sources */,
+				7BB7ACAE18DC75800001FCAF /* SPGradientColor.m in Sources */,
+				7BB7ACB118E0855B0001FCAF /* SPRowView.m in Sources */,
 				6BBBEE091860EC1C003A3A0B /* NSString+Levenshtein.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

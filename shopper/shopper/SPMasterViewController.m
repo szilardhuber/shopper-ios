@@ -14,12 +14,15 @@
 #import "Item.h"
 #import "ItemName.h"
 #import "List.h"
+#import "ListTableViewCell.h"
+#import "SPGradientColor.h"
 
 @interface SPMasterViewController () {
     KYPullToActionController* _pullToActionController;
     BOOL _userChange;
     List* _mainList;
     SPSuggestionFetcher* _suggestionfetcher;
+    SPGradientColor* _gradientColor;
 }
 @end
 
@@ -39,6 +42,9 @@
 - (void)initialize
 {
     _suggestionfetcher = SPSuggestionFetcher.new;
+    UIColor *endColor = [UIColor colorWithRed:0.28235294117647 green:0.41960784313725 blue:0.03137254901961 alpha:0.8];
+    UIColor *startColor = [UIColor colorWithRed:0.43529411764706 green:0.64705882352941 blue:0.06274509803922 alpha:0.8];
+    _gradientColor = [SPGradientColor initWithStartColor:startColor endColor:endColor colorCount:5];
 }
 
 - (void)viewDidLoad
@@ -108,19 +114,32 @@
     return [sectionInfo numberOfObjects];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [_gradientColor getColorForRow:indexPath.row];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // KOTYO hack - remove it later
 //    self.title = [NSString stringWithFormat:@"[shopzenion] - %lu", (unsigned long)[_list.items count]];
 
-    SPInputCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newitem" forIndexPath:indexPath];
+    SPInputCell *inputCell = [tableView dequeueReusableCellWithIdentifier:@"newitem" forIndexPath:indexPath];
+    inputCell.backgroundColor = [_gradientColor getColorForRow:indexPath.row];
 
-    [self configureCell:cell atIndexPath:indexPath];
+    [self configureCell:inputCell atIndexPath:indexPath];
     
-    if (cell.item.name == nil) {
-        [cell edit];
+    if (inputCell.item.name == nil) {
+        [inputCell edit];
     }
-    return cell;
+    return inputCell;
+//    else {
+//        Item *item = (Item*)[self.fetchedResultsController objectAtIndexPath:indexPath];
+//        ListTableViewCell *listCell = [tableView dequeueReusableCellWithIdentifier:@"listitem" forIndexPath:indexPath];
+//        listCell.name.backgroundColor = [UIColor greenColor];
+//        listCell.name.text = item.name.name;
+//        return listCell;
+//    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -137,7 +156,6 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }
 }
-
 
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
@@ -158,6 +176,9 @@
             affectedItem.done = [NSNumber numberWithBool:NO];
         }
     }
+
+    SPInputCell *cell = (SPInputCell*)[tableView cellForRowAtIndexPath:fromIndexPath];
+    cell.backgroundColor = [_gradientColor getColorForRow:toIndexPath.row];
 }
 
 // Ret Value: -1 - moved up; 0 - stayed in place; 1 - moved down
@@ -355,6 +376,13 @@
     else {
         [self.tableView reloadData];
     }
+    
+    for (SPInputCell* cell in self.tableView.visibleCells)
+    {
+        NSIndexPath* indexPath = [self.tableView indexPathForCell:cell];
+        cell.backgroundColor = [_gradientColor getColorForRow:indexPath.row];
+    }
+    
     // KOTYO hack - remove it later
     self.title = [NSString stringWithFormat:@"[shopzenion] - %lu [%lu]", (unsigned long)[self.fetchedResultsController.fetchedObjects count], (unsigned long)[_mainList.items count]];
     
