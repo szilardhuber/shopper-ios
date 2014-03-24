@@ -64,6 +64,11 @@
     [[self.navigationController navigationBar] setTranslucent:NO];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopzenion"]];
     
+    // Override table view default display settings
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundView = nil;
+    self.tableView.backgroundColor = [UIColor colorWithRed:55/255.0 green:55/255.0 blue:55/255.0 alpha:1.0];
+    
     // Pull to add
     if (!_pullToActionController) {
         self.pullToActionLabel.frame = CGRectMake(0.0, 0.0,

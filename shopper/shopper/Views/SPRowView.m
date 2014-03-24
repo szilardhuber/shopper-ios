@@ -13,15 +13,18 @@
 - (void)drawRect:(CGRect)rect {
     //[super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGRect someRect = CGRectMake(0, 0, 15, 15);
+
+    CGRect bounds = [self bounds];
     
-    // Set the line width to 10 and inset the rectangle by
-    // 5 pixels on all sides to compensate for the wider line.
-    CGContextSetLineWidth(context, 10);
-    CGRectInset(someRect, 5, 5);
+    CGPoint center;
+    center.x = bounds.origin.x + bounds.size.width / 2.0;
+    center.y = bounds.origin.y + bounds.size.height / 2.0;
+    CGContextSaveGState(context);
     
-    [[UIColor redColor] set];
-    UIRectFrame(someRect);
+    CGContextSetLineWidth(context,5);
+    CGContextSetRGBStrokeColor(context,1,1,1,1.0);
+    CGContextAddArc(context,center.x,center.y,2,0.0,M_PI*2,YES);
+    CGContextStrokePath(context);
 }
 
 
