@@ -44,6 +44,11 @@
                    range:NSMakeRange(0, nameString.length)];
     }
     _inputField.attributedText = as;
+
+    // Quantity - TODO remove to other method
+    NSString* quantityString = ([_item quantityString]) ? [_item quantityString] : @"1";
+    NSMutableAttributedString* asQuantity = [[NSMutableAttributedString alloc] initWithString:quantityString];
+    _quantity.attributedText = asQuantity;
 }
 
 - (void)swipeRight:(id)sender

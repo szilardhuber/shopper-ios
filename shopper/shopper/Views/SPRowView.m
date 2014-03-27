@@ -11,19 +11,26 @@
 @implementation SPRowView
 
 - (void)drawRect:(CGRect)rect {
-    //[super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     CGRect bounds = [self bounds];
     
-    CGPoint center;
-    center.x = bounds.origin.x + bounds.size.width / 2.0;
-    center.y = bounds.origin.y + bounds.size.height / 2.0;
+    // Draw drag icon
+    CGPoint centerDrag;
+    centerDrag.x = 14;
+    centerDrag.y = bounds.origin.y + bounds.size.height / 2.0;
     CGContextSaveGState(context);
     
     CGContextSetLineWidth(context,5);
+    CGContextSetRGBFillColor(context,1,1,1,1.0);
+    CGContextAddArc(context,centerDrag.x,centerDrag.y,2,0.0,M_PI*2,YES);
+    CGContextFillPath(context);
+    
+    // Draw circle around quantity
+    CGContextSetLineWidth(context,1);
     CGContextSetRGBStrokeColor(context,1,1,1,1.0);
-    CGContextAddArc(context,center.x,center.y,2,0.0,M_PI*2,YES);
+    CGContextAddArc(context,centerDrag.x + 39,centerDrag.y,14,0.0,M_PI*2,YES);
+
     CGContextStrokePath(context);
 }
 

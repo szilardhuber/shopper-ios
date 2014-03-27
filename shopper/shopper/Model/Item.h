@@ -17,4 +17,5 @@
 
 - (void)setNameString:(NSString*)name;
 - (NSString*)nameString;
+- (NSString*)quantityString;
 @end

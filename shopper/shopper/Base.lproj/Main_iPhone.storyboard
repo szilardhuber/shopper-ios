@@ -24,7 +24,7 @@
         <scene sceneID="VgW-fR-Quf">
             <objects>
                 <tableViewController title="Master" id="pGg-6v-bdr" customClass="SPMasterViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="mLL-gJ-YKr">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="54" sectionHeaderHeight="22" sectionFooterHeight="22" id="mLL-gJ-YKr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -38,29 +38,48 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="New Shopping Item" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NcK-18-qPQ" customClass="MLPAutoCompleteTextField">
-                                            <rect key="frame" x="86" y="12" width="234" height="30"/>
+                                        <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHP-nw-2bX" customClass="SPRowView">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="53"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                            <connections>
-                                                <outlet property="autoCompleteDataSource" destination="pGg-6v-bdr" id="ipS-Ey-ybq"/>
-                                            </connections>
-                                        </textField>
-                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SHP-nw-2bX" customClass="SPRowView">
-                                            <rect key="frame" x="6" y="18" width="17" height="17"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="Text" placeholder="New Shopping Item" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NcK-18-qPQ" customClass="MLPAutoCompleteTextField">
+                                                    <rect key="frame" x="89" y="10" width="234" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                    <connections>
+                                                        <outlet property="autoCompleteDataSource" destination="pGg-6v-bdr" id="ipS-Ey-ybq"/>
+                                                    </connections>
+                                                </textField>
+                                                <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="99" placeholder="New Shopping Item" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M6K-tF-gzy" customClass="MLPAutoCompleteTextField">
+                                                    <rect key="frame" x="34" y="11" width="35" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="hbf-Xb-XNL"/>
+                                                        <constraint firstAttribute="height" constant="30" id="xND-7u-tDj"/>
+                                                    </constraints>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                    <connections>
+                                                        <outlet property="autoCompleteDataSource" destination="pGg-6v-bdr" id="YV6-yF-Nu7"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="M6K-tF-gzy" secondAttribute="centerY" id="IPi-2x-dH6"/>
+                                                <constraint firstItem="M6K-tF-gzy" firstAttribute="top" secondItem="SHP-nw-2bX" secondAttribute="top" constant="12" id="htr-b8-azD"/>
+                                                <constraint firstAttribute="centerY" secondItem="NcK-18-qPQ" secondAttribute="centerY" id="qCa-2e-eSX"/>
+                                            </constraints>
                                         </view>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="NcK-18-qPQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XuO-sO-aC5" secondAttribute="leading" constant="20" symbolic="YES" id="xsh-nH-gxA"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.2156862745" green="0.2156862745" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="inputField" destination="NcK-18-qPQ" id="Af2-V1-dBA"/>
+                                    <outlet property="quantity" destination="M6K-tF-gzy" id="a9j-u1-KN3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

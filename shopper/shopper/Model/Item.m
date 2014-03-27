@@ -73,5 +73,10 @@
     return self.name.name;
 }
 
+- (NSString*)quantityString
+{
+    return [self.quantity stringValue];
+}
+
 
 @end
