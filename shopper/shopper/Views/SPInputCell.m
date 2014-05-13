@@ -7,6 +7,7 @@
 //
 
 #import "SPInputCell.h"
+#import "Constants.h"
 
 @implementation SPInputCell
 {
@@ -95,6 +96,57 @@
         [inputField setAutoCompleteTableBorderWidth:3.5];
         [inputField setAutoCompleteTableCellTextColor:[UIColor blackColor]];
     }
+}
+
+- (void)removeReorderControlIcon:(UIView*)view{
+    for (UIView *subview in view.subviews) {
+        if([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellDeleteConfirmationControl"]) {
+            
+            // do magic here
+            
+        }else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellEditControl"]) {
+            
+            // do magic here
+            
+        }else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellReorderControl"]) {
+            
+       	    // do magic here
+            
+            // example - use the full cell area as touching ground for the drag & drop
+            // we'll also remove the move icon
+            
+            // change the drag & drop touch area frame
+            CGRect newFrame = self.frame;
+            newFrame.origin.x = 0.0;
+            newFrame.origin.y = 0.0;
+            newFrame.size.width = DRAG_TARGET_WIDTH;
+            subview.frame = newFrame;
+            
+            // search for the move icon
+            for(UIView * subview2 in subview.subviews){
+                
+                if ([subview2 isKindOfClass: [UIImageView class]]) {
+                    // remove the icon
+                    [subview2 removeFromSuperview];
+                }
+                
+            }
+            
+        } else if ([NSStringFromClass([subview class]) isEqualToString:@"UITableViewCellScrollView"]) {
+            [self removeReorderControlIcon:subview];
+        }
+    }
+    
+}
+
+- (void)layoutSubviews{
+    [super layoutSubviews];
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:0.0f];
+    [self removeReorderControlIcon:self];
+    [UIView commitAnimations];
 }
 
 #pragma mark - UITextField delegate

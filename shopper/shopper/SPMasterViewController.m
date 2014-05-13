@@ -68,7 +68,9 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor colorWithRed:55/255.0 green:55/255.0 blue:55/255.0 alpha:1.0];
-    
+    self.tableView.delegate = self;
+    [self.tableView setEditing:YES animated:NO];
+
     // Pull to add
     if (!_pullToActionController) {
         self.pullToActionLabel.frame = CGRectMake(0.0, 0.0,
@@ -80,8 +82,9 @@
         } actionHandler:^{
             [self insertNewObject:self];
         }];
-        [self.tableView setDelegate:(id<UITableViewDelegate>)_pullToActionController];
-    }    
+       // [self.tableView setDelegate:(id<UITableViewDelegate>)_pullToActionController]; // TODO removed by HSZ, should check it's consequences.
+    }
+ 
 }
 
 - (void)didReceiveMemoryWarning
@@ -434,6 +437,23 @@
     [_suggestionfetcher giveSuggestionsFor:string
                                  byHandler:handler];
 }
+
+// cells are movable
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+// editing style
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleNone;
+}
+
+// cell content view indentation
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    return NO;
+}
+
+
 
 @end
 

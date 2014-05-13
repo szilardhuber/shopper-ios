@@ -13,7 +13,7 @@
 @class SPDetailViewController;
 
 @interface SPMasterViewController : UITableViewController
-<NSFetchedResultsControllerDelegate, MLPAutoCompleteTextFieldDataSource>
+<NSFetchedResultsControllerDelegate, MLPAutoCompleteTextFieldDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

@@ -43,6 +43,7 @@
 		7B27F30118D2FB7200D61099 /* ListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B27F30018D2FB7200D61099 /* ListTableViewCell.m */; };
 		7BB7ACAE18DC75800001FCAF /* SPGradientColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB7ACAD18DC75800001FCAF /* SPGradientColor.m */; };
 		7BB7ACB118E0855B0001FCAF /* SPRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BB7ACB018E0855B0001FCAF /* SPRowView.m */; };
+		E218380C191EB032000A1EB8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = E218380B191EB032000A1EB8 /* Constants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +120,8 @@
 		7BB7ACAD18DC75800001FCAF /* SPGradientColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGradientColor.m; sourceTree = "<group>"; };
 		7BB7ACAF18E0855B0001FCAF /* SPRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPRowView.h; sourceTree = "<group>"; };
 		7BB7ACB018E0855B0001FCAF /* SPRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRowView.m; sourceTree = "<group>"; };
+		E2183808191EAFCA000A1EB8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		E218380B191EB032000A1EB8 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +217,8 @@
 		6BAF9F1D18357F45006BC3AD /* shopper */ = {
 			isa = PBXGroup;
 			children = (
+				E218380B191EB032000A1EB8 /* Constants.m */,
+				E2183808191EAFCA000A1EB8 /* Constants.h */,
 				7B27F2FF18D2FB7200D61099 /* ListTableViewCell.h */,
 				7B27F30018D2FB7200D61099 /* ListTableViewCell.m */,
 				6BAF9F2618357F45006BC3AD /* SPAppDelegate.h */,
@@ -430,6 +435,7 @@
 				6BAF9F2818357F45006BC3AD /* SPAppDelegate.m in Sources */,
 				6BFE8B7E186EDE01005575E2 /* ItemEntity.m in Sources */,
 				6BBBEE1F1862F899003A3A0B /* List.m in Sources */,
+				E218380C191EB032000A1EB8 /* Constants.m in Sources */,
 				6BFE8B84186EDE3E005575E2 /* ItemName.m in Sources */,
 				6BFE8B78186EDE00005575E2 /* ItemNameEntity.m in Sources */,
 				6BFE8B7B186EDE01005575E2 /* TokenEntity.m in Sources */,
@@ -579,11 +585,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shopper/shopzenion-Prefix.pch";
 				INFOPLIST_FILE = "shopper/shopzenion-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = shopzenion;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -595,11 +603,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "shopper/shopzenion-Prefix.pch";
 				INFOPLIST_FILE = "shopper/shopzenion-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = shopzenion;
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
