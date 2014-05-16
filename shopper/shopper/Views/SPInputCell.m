@@ -11,16 +11,20 @@
 
 @implementation SPInputCell
 {
-    UISwipeGestureRecognizer* _swipeRecognizer;
+    UISwipeGestureRecognizer* _swipeRightRecognizer;
+    UISwipeGestureRecognizer* _swipeLeftRecognizer;
 }
 
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super initWithCoder:decoder];
     if (self) {
-        _swipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeRight:)];
-        _swipeRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
-        [self addGestureRecognizer:_swipeRecognizer];
+        _swipeRightRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(rowSwipedRight:)];
+        _swipeRightRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+        [self addGestureRecognizer:_swipeRightRecognizer];
+        _swipeLeftRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(rowSwipedLeft:)];
+        _swipeLeftRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+        [self addGestureRecognizer:_swipeLeftRecognizer];
     }
     return self;
 }
@@ -52,11 +56,19 @@
     _quantity.attributedText = asQuantity;
 }
 
-- (void)swipeRight:(id)sender
+- (void)rowSwipedRight:(id)sender
 {
     if (![self.inputField isFirstResponder]) {
         self.item.done = [NSNumber numberWithBool:!self.item.done.boolValue];
         [self setupInputFieldText];
+    }
+}
+
+- (void)rowSwipedLeft:(id)sender
+{
+    if (![self.inputField isFirstResponder]) {
+        NSIndexPath* deletableIndexPath = [self.controller.tableView indexPathForCell:self];
+        [self.controller deleteItemAtIdexPath:deletableIndexPath];
     }
 }
 

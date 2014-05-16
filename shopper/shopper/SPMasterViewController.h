@@ -21,4 +21,6 @@
 @property (strong, nonatomic) SPDetailViewController *detailViewController;
 @property (strong, nonatomic) IBOutlet UILabel *pullToActionLabel;
 
+- (void)deleteItemAtIdexPath:(NSIndexPath*)indexPath;
+
 @end

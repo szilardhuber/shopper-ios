@@ -140,6 +140,7 @@
     if (inputCell.item.name == nil) {
         [inputCell edit];
     }
+    inputCell.controller = self;
     return inputCell;
 //    else {
 //        Item *item = (Item*)[self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -427,6 +428,11 @@
     // Delete the element
     Item* deletableItem = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [deletableItem delete];
+
+    self.fetchedResultsController = nil;
+    NSError *error = nil;
+    [[self fetchedResultsController] performFetch:&error];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
 }
 
 #pragma mark - MLP Autocompletion Text Field data source
